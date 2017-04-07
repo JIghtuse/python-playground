@@ -23,7 +23,7 @@ def client_sender(buffer, host, port):
     try:
         client.connect((host, port))
 
-        if len(buffer):
+        if buffer:
             client.send(buffer.encode("utf-8"))
 
         while True:
@@ -52,7 +52,7 @@ def client_sender(buffer, host, port):
 
 def server_loop(args):
     host = args.target_host
-    if not len(host):
+    if not host:
         host = "0.0.0.0"
 
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -109,7 +109,7 @@ def client_handler(client_socket, args):
 
                 while b'\n' not in command_buffer:
                     command_continuation = client_socket.recv(REQUEST_SIZE)
-                    if len(command_continuation) == 0:
+                    if not command_continuation:
                         break
                     command_buffer += command_continuation
 
@@ -135,7 +135,7 @@ def main():
 
     args = parser.parse_args()
 
-    if not args.listen and len(args.target_host) and args.target_port > 0:
+    if not args.listen and args.target_port > 0:
         buffer = sys.stdin.read()
 
         client_sender(buffer, args.target_host, args.target_port)
