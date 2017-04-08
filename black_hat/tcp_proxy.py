@@ -113,16 +113,19 @@ def server_loop(args):
 
 
 def main():
-    logging.basicConfig(level=logging.INFO)
-
     parser = argparse.ArgumentParser(description="TCP proxy")
     parser.add_argument("local_host")
     parser.add_argument("local_port", type=int)
     parser.add_argument("remote_host")
     parser.add_argument("remote_port", type=int)
     parser.add_argument("--receive-first", action='store_true')
+    parser.add_argument("--verbose", "-v", action='store_true')
 
     args = parser.parse_args()
+
+    if args.verbose:
+        logging.basicConfig(level=logging.INFO)
+
     server_loop(args)
 
 

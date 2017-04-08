@@ -36,8 +36,12 @@ def main():
     parser = argparse.ArgumentParser(description="")
     parser.add_argument("local_host")
     parser.add_argument("local_port", type=int)
+    parser.add_argument("-v", "--verbose", action='store_true')
 
     args = parser.parse_args()
+
+    if args.verbose:
+        logging.basicConfig(level=logging.INFO)
 
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -83,5 +87,4 @@ def main():
             break
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.INFO)
     main()
