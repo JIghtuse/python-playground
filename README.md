@@ -5,4 +5,5 @@ listed below.
 
 
 ## Resources
-[Black Hat Python](https://www.nostarch.com/blackhatpython)
+* [Black Hat Python](https://www.nostarch.com/blackhatpython)
+* [Python Crash Course](https://nostarch.com/pythoncrashcourse)
