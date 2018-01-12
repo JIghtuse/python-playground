@@ -23,7 +23,7 @@ def run_game():
         # Watch for keyboard and mouse events
         game_functions.process_events(pygame.event.get(), settings, screen, ship, bullets)
         ship.update()
-        bullets.update()
+        game_functions.update_bullets(bullets)
         game_functions.update_screen(settings, screen, ship, bullets)
 
 run_game()
