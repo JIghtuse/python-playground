@@ -31,25 +31,31 @@ class AlienFleet:
         self.move_direction = 1
         self.screen = screen
         self.settings = settings
+        self.ship_height = ship.rect.height
+
+        alien_rect = Alien(settings, screen, 0, 0, self.move_direction).rect
+        self.alien_width = alien_rect.width
+        self.alien_height = alien_rect.height
 
         self.aliens = Group()
 
-        # Create an alien and find the number of aliens in a row
-        alien_rect = Alien(settings, screen, 0, 0, self.move_direction).rect
-        alien_width = alien_rect.width
-        alien_height = alien_rect.height
+        self.make_aliens()
 
-        number_aliens_x = get_number_aliens_x(settings, alien_width)
-        number_aliens_y = get_number_aliens_y(settings, alien_height, ship.rect.height)
+    def __bool__(self):
+        return bool(self.aliens)
+
+    def make_aliens(self):
+        # Create an alien and find the number of aliens in a row
+        number_aliens_x = get_number_aliens_x(self.settings, self.alien_width)
+        number_aliens_y = get_number_aliens_y(self.settings, self.alien_height, self.ship_height)
 
         # Create the fleet of aliens
         for row in range(number_aliens_y):
             for alien_number in range(number_aliens_x):
-                x = get_alien_x(alien_width, alien_number)
-                y = get_alien_y(alien_height, row)
-                alien = Alien(settings, screen, x, y, self.move_direction)
+                x = get_alien_x(self.alien_width, alien_number)
+                y = get_alien_y(self.alien_height, row)
+                alien = Alien(self.settings, self.screen, x, y, self.move_direction)
                 self.aliens.add(alien)
-
 
     def update(self):
         """Update the positions of all aliens in the fleet"""

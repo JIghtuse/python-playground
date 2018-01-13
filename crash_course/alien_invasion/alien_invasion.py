@@ -25,6 +25,9 @@ def run_game():
         game_functions.process_events(pygame.event.get(), settings, screen, ship, bullets)
         ship.update()
         game_functions.update_bullets(bullets, alien_fleet.aliens)
+        if not alien_fleet:
+            alien_fleet.make_aliens()
+            bullets.empty()
         alien_fleet.update()
         game_functions.update_screen(settings, screen, ship, alien_fleet, bullets)
 
