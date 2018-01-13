@@ -27,11 +27,12 @@ def get_alien_y(alien_height, row_number):
 
 
 class AlienFleet:
-    def __init__(self, settings, screen, ship):
+    def __init__(self, settings, screen, stats, ship):
         self.move_direction = 1
         self.screen = screen
         self.settings = settings
-        self.ship_height = ship.rect.height
+        self.stats = stats
+        self.ship = ship
 
         alien_rect = Alien(settings, screen, 0, 0, self.move_direction).rect
         self.alien_width = alien_rect.width
@@ -45,9 +46,11 @@ class AlienFleet:
         return bool(self.aliens)
 
     def make_aliens(self):
+        self.aliens.empty()
+
         # Create an alien and find the number of aliens in a row
         number_aliens_x = get_number_aliens_x(self.settings, self.alien_width)
-        number_aliens_y = get_number_aliens_y(self.settings, self.alien_height, self.ship_height)
+        number_aliens_y = get_number_aliens_y(self.settings, self.alien_height, self.ship.rect.height)
 
         # Create the fleet of aliens
         for row in range(number_aliens_y):
@@ -69,3 +72,11 @@ class AlienFleet:
 
     def draw(self):
         self.aliens.draw(self.screen)
+
+    def ship_hit(self):
+        """Was ship hit by alien?"""
+        return pygame.sprite.spritecollideany(self.ship, self.aliens)
+
+    def reached_bottom(self):
+        """Has any alien reached the bottom of the screen?"""
+        return any(alien.rect.bottom >= self.screen.get_rect().bottom for alien in self.aliens)
