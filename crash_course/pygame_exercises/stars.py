@@ -10,11 +10,10 @@ STAR_IMAGE_PATH = 'images/star.png'
 
 
 class Star(Sprite):
-    def __init__(self, screen, x, y):
+    def __init__(self, star_image, screen, x, y):
         super().__init__()
-        image = pygame.image.load(STAR_IMAGE_PATH)
+        self.image = star_image
         self.screen = screen
-        self.image = pygame.transform.scale(image, (30, 30))
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
@@ -23,15 +22,14 @@ class Star(Sprite):
         self.screen.blit(self.image, self.rect)
 
 
-def get_star_rect(screen):
-    star = Star(screen, 0, 0)
-    return star.rect
-
-
 def make_stars(screen):
     screen_rect = screen.get_rect()
 
-    star_rect = get_star_rect(screen)
+    star_image = pygame.image.load(STAR_IMAGE_PATH)
+    star_image = pygame.transform.scale(star_image, (30, 30))
+
+    star_rect = star_image.get_rect()
+
     star_x_spacing = star_rect.width * 2
     star_y_spacing = star_rect.height * 2
 
@@ -41,8 +39,6 @@ def make_stars(screen):
     space_available_y = screen_rect.height - star_y_spacing * 2
     number_of_stars_y = space_available_y // (star_y_spacing * 2)
 
-    print(number_of_stars_x, number_of_stars_y)
-
     stars = Group()
     for row_number in range(number_of_stars_y):
         for star_number in range(number_of_stars_x):
@@ -51,7 +47,7 @@ def make_stars(screen):
             # using random offsets to create a bit more realistic stars placing
             x += random.randint(-30, 30)
             y += random.randint(-30, 30)
-            stars.add(Star(screen, x, y))
+            stars.add(Star(star_image, screen, x, y))
 
     return stars
 
