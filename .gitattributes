@@ -5,3 +5,4 @@ crash_course/alien_invasion/images/alien.bmp filter=lfs diff=lfs merge=lfs -text
 crash_course/pygame_exercises/images/star.png filter=lfs diff=lfs merge=lfs -text
 crash_course/pygame_exercises/images/ship.png filter=lfs diff=lfs merge=lfs -text
 crash_course/pygame_exercises/images/ball.png filter=lfs diff=lfs merge=lfs -text
+crash_course/pygame_exercises/images/raindrop.png filter=lfs diff=lfs merge=lfs -text
