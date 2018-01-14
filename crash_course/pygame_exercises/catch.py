@@ -13,6 +13,8 @@ BACKGROUND_COLOR = 230, 230, 230
 CHARACTER_X_SPEED = 5
 BALL_Y_SPEED = 2
 
+MAX_FAIL_TIMES = 3
+
 
 class Ball:
     def __init__(self, image, centerx, top):
@@ -67,6 +69,7 @@ class Catch:
         self.character_image = pygame.image.load(CHARACTER_IMAGE_PATH)
         self.character = Character(self.character_image, self.screen_rect)
         self.make_ball()
+        self.fail_count = 0
 
     def process_keydown(self, event):
         if event.key == pygame.K_LEFT:
@@ -102,6 +105,9 @@ class Catch:
             self.make_ball()
         if self.ball.rect.top > self.screen_rect.bottom:
             self.make_ball()
+            self.fail_count += 1
+        if self.fail_count >= MAX_FAIL_TIMES:
+            self.running = False
 
     def draw(self):
         self.screen.fill(BACKGROUND_COLOR)
