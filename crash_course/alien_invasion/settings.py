@@ -25,3 +25,5 @@ class Settings:
         # Alien settings
         self.alien_speed_x = 1
         self.alien_speed_y = 10
+        self.max_aliens_x = 10
+        self.max_aliens_y = 3

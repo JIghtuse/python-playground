@@ -7,13 +7,15 @@ from alien import Alien
 def get_number_aliens_x(settings, alien_width):
     """Determine the number of aliens that fit in a row"""
     available_space_x = settings.screen_width - 2 * alien_width
-    return available_space_x // (2 * alien_width)
+    aliens_x = available_space_x // (2 * alien_width)
+    return min(aliens_x, settings.max_aliens_x)
 
 
 def get_number_aliens_y(settings, alien_height, ship_height):
     """Determine the number of aliens that fit in a column"""
     available_space_y = settings.screen_height - 3 * alien_height - ship_height
-    return available_space_y // (2 * alien_height)
+    aliens_y = available_space_y // (2 * alien_height)
+    return min(aliens_y, settings.max_aliens_y)
 
 
 def get_alien_x(alien_width, alien_number):
