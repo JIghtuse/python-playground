@@ -7,7 +7,7 @@ class Settings:
 
         # Screen settings
         self.screen_width = 1920
-        self.screen_height = 800
+        self.screen_height = 1080
         self.screen_mode = self.screen_width, self.screen_height
         self.background_color = (230, 230, 230)
 

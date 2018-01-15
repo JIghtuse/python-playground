@@ -73,7 +73,7 @@ class AlienInvasion:
         elif event.key == pygame.K_SPACE:
             self.try_fire_bullet()
         elif event.key == pygame.K_q:
-            self.sys.exit()
+            sys.exit()
 
     def try_fire_bullet(self):
         """Fire a bullet if limit not reached yet"""
