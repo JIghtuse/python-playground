@@ -74,6 +74,8 @@ class AlienInvasion:
             self.try_fire_bullet()
         elif event.key == pygame.K_q:
             sys.exit()
+        elif event.key == pygame.K_p:
+            self.start_game()
 
     def try_fire_bullet(self):
         """Fire a bullet if limit not reached yet"""
@@ -97,11 +99,8 @@ class AlienInvasion:
                 mouse_x, mouse_y = pygame.mouse.get_pos()
                 button_clicked = self.play_button.rect.collidepoint(mouse_x, mouse_y)
                 # Starting new game if user presses play button
-                if button_clicked and not self.game_active:
-                    self.reset()
-                    self.game_active = True
-                    # Hide mouse cursor
-                    pygame.mouse.set_visible(False)
+                if button_clicked:
+                    self.start_game()
             elif event.type == pygame.KEYDOWN:
                 self.process_keydown_events(event)
             elif event.type == pygame.KEYUP:
@@ -138,6 +137,14 @@ class AlienInvasion:
             pygame.mouse.set_visible(False)
             return False
         return True
+
+    def start_game(self):
+        if self.game_active:
+            return
+        self.reset()
+        self.game_active = True
+        # Hide mouse cursor
+        pygame.mouse.set_visible(False)
 
     def run(self):
         # Start the main loop for the game
