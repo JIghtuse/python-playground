@@ -7,11 +7,12 @@ ALIEN_IMAGE_PATH = 'images/alien.bmp'
 class Alien(Sprite):
     """Single alien in the fleet"""
 
-    def __init__(self, settings, screen, x, y, move_direction):
+    def __init__(self, settings, speed_x, screen, x, y, move_direction):
         """Initialize the alien and set its starting position"""
         super().__init__()
         self.screen = screen
         self.settings = settings
+        self.speed_x = speed_x
 
         # Load the alien image and set its rect attribute
         self.image = pygame.image.load(ALIEN_IMAGE_PATH)
@@ -38,5 +39,5 @@ class Alien(Sprite):
 
     def update(self):
         """Move the alien right"""
-        self.x += self.settings.alien_speed_x * self.move_direction
+        self.x += self.speed_x * self.move_direction
         self.rect.x = self.x

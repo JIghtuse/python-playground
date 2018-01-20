@@ -5,7 +5,7 @@ class Ship:
     def __init__(self, settings, screen):
         """Initialize the ship and set its starting position"""
         self.screen = screen
-        self.x_speed = settings.ship_x_speed
+        self.speed_x = settings.ship_speed_x
 
         # Load the ship image and get its rect
         image = pygame.image.load('images/ship.bmp')
@@ -27,9 +27,9 @@ class Ship:
     def update(self):
         """Update the ship's position based on movement speed"""
         if self.moving_left and self.rect.left > 0:
-            self.centerx -= self.x_speed
+            self.centerx -= self.speed_x
         if self.moving_right and self.rect.right < self.screen_rect.right:
-            self.centerx += self.x_speed
+            self.centerx += self.speed_x
 
         # Update rect object from self.center
         self.rect.centerx = self.centerx

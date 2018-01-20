@@ -36,18 +36,18 @@ class AlienFleet:
         self.stats = stats
         self.ship = ship
 
-        alien_rect = Alien(settings, screen, 0, 0, self.move_direction).rect
+        alien_rect = Alien(settings, settings.alien_speed_x, screen, 0, 0, self.move_direction).rect
         self.alien_width = alien_rect.width
         self.alien_height = alien_rect.height
 
         self.aliens = Group()
 
-        self.make_aliens()
+        self.make_aliens(settings.alien_speed_x)
 
     def __bool__(self):
         return bool(self.aliens)
 
-    def make_aliens(self):
+    def make_aliens(self, alien_speed_x):
         self.aliens.empty()
 
         # Create an alien and find the number of aliens in a row
@@ -59,7 +59,7 @@ class AlienFleet:
             for alien_number in range(number_aliens_x):
                 x = get_alien_x(self.alien_width, alien_number)
                 y = get_alien_y(self.alien_height, row)
-                alien = Alien(self.settings, self.screen, x, y, self.move_direction)
+                alien = Alien(self.settings, alien_speed_x, self.screen, x, y, self.move_direction)
                 self.aliens.add(alien)
 
     def update(self):

@@ -5,7 +5,7 @@ from pygame.sprite import Sprite
 class Bullet(Sprite):
     """Bullet fired from the ship"""
 
-    def __init__(self, settings, screen, ship):
+    def __init__(self, settings, speed_y, screen, ship):
         """Create a bullet object at the ship's current position"""
         super().__init__()
         self.screen = screen
@@ -19,12 +19,13 @@ class Bullet(Sprite):
         self.y = float(self.rect.y)
 
         self.color = settings.bullet_color
-        self.y_speed = -settings.bullet_y_speed
+        self.speed_y = speed_y
+        self.direction = -1
 
     def update(self):
         """Move the bullet up the screen"""
         # Update the decimal position of the bullet
-        self.y += self.y_speed
+        self.y += self.direction * self.speed_y
         # Update the rect position
         self.rect.y = self.y
 

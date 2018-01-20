@@ -28,6 +28,8 @@ class AlienInvasion:
         # Make a ship, a group of bullets, and a group of aliens
         self.ship = Ship(self.settings, self.screen)
         self.bullets = Group()
+        self.current_bullet_speed_y = self.settings.bullet_speed_y
+        self.current_alien_speed_x = self.settings.alien_speed_x
         self.alien_fleet = AlienFleet(self.settings, self.screen, self.stats, self.ship)
         self.game_active = False
 
@@ -81,7 +83,7 @@ class AlienInvasion:
         """Fire a bullet if limit not reached yet"""
         if len(self.bullets) < self.settings.max_bullets_active:
             # Create a new bullet and add it to the bullets group
-            new_bullet = Bullet(self.settings, self.screen, self.ship)
+            new_bullet = Bullet(self.settings, self.current_bullet_speed_y, self.screen, self.ship)
             self.bullets.add(new_bullet)
 
     def process_keyup_events(self, event):
@@ -113,7 +115,7 @@ class AlienInvasion:
 
     def reset_aliens_and_bullets(self):
         self.bullets.empty()
-        self.alien_fleet.make_aliens()
+        self.alien_fleet.make_aliens(self.current_alien_speed_x)
 
     def hit(self):
         self.stats.ships_left -= 1
@@ -130,6 +132,7 @@ class AlienInvasion:
         self.update_bullets()
         self.alien_fleet.update()
         if not self.alien_fleet:
+            self.increase_speed()
             self.reset_aliens_and_bullets()
         if self.alien_fleet.ship_hit() or self.alien_fleet.reached_bottom():
             self.hit()
@@ -137,6 +140,12 @@ class AlienInvasion:
             pygame.mouse.set_visible(False)
             return False
         return True
+
+    def increase_speed(self):
+        """Increase game speed"""
+        self.ship.speed_x *= self.settings.speedup_scale
+        self.current_bullet_speed_y *= self.settings.speedup_scale
+        self.current_alien_speed_x *= self.settings.speedup_scale
 
     def start_game(self):
         if self.game_active:
